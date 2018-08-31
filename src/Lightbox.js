@@ -11,6 +11,7 @@ import Header from './components/Header';
 import PaginatedThumbnails from './components/PaginatedThumbnails';
 import Portal from './components/Portal';
 import DefaultSpinner from './components/Spinner';
+import VideoItem from './components/VideoItem';
 
 import bindFunctions from './utils/bindFunctions';
 import canUseDom from './utils/canUseDom';
@@ -53,24 +54,24 @@ class Lightbox extends Component {
 			if (this.props.enableKeyboardInput) {
 				window.addEventListener('keydown', this.handleKeyboardInput);
 			}
-			if (typeof this.props.currentImage === 'number') {
-				this.preloadImage(this.props.currentImage, this.handleImageLoaded);
+			if (typeof this.props.currentItem === 'number') {
+				this.preloadImage(this.props.currentItem, this.handleImageLoaded);
 			}
 		}
 	}
 	componentWillReceiveProps (nextProps) {
 		if (!canUseDom) return;
 
-		// preload images
+		// preload items
 		if (nextProps.preloadNextImage) {
-			const currentIndex = this.props.currentImage;
-			const nextIndex = nextProps.currentImage + 1;
-			const prevIndex = nextProps.currentImage - 1;
+			const currentIndex = this.props.currentItem;
+			const nextIndex = nextProps.currentItem + 1;
+			const prevIndex = nextProps.currentItem - 1;
 			let preloadIndex;
 
-			if (currentIndex && nextProps.currentImage > currentIndex) {
+			if (currentIndex && nextProps.currentItem > currentIndex) {
 				preloadIndex = nextIndex;
-			} else if (currentIndex && nextProps.currentImage < currentIndex) {
+			} else if (currentIndex && nextProps.currentItem < currentIndex) {
 				preloadIndex = prevIndex;
 			}
 
@@ -85,8 +86,8 @@ class Lightbox extends Component {
 		}
 
 		// preload current image
-		if (this.props.currentImage !== nextProps.currentImage || !this.props.isOpen && nextProps.isOpen) {
-			const img = this.preloadImageData(nextProps.images[nextProps.currentImage], this.handleImageLoaded);
+		if (this.props.currentItem !== nextProps.currentItem || !this.props.isOpen && nextProps.isOpen) {
+			const img = this.preloadImageData(nextProps.items[nextProps.currentItem], this.handleImageLoaded);
 			if (img) this.setState({ imageLoaded: img.complete });
 		}
 
@@ -109,14 +110,14 @@ class Lightbox extends Component {
 	// ==============================
 
 	preloadImage (idx, onload) {
-		return this.preloadImageData(this.props.images[idx], onload);
+		return this.preloadImageData(this.props.items[idx], onload);
 	}
 	preloadImageData (data, onload) {
 		if (!data) return;
 		const img = new Image();
 		const sourceSet = normalizeSourceSet(data);
 
-		// TODO: add error handling for missing images
+		// TODO: add error handling for missing items
 		img.onerror = onload;
 		img.onload = onload;
 		img.src = data.src;
@@ -126,10 +127,10 @@ class Lightbox extends Component {
 		return img;
 	}
 	gotoNext (event) {
-		const { currentImage, images } = this.props;
+		const { currentItem, items } = this.props;
 		const { imageLoaded } = this.state;
 
-		if (!imageLoaded || currentImage === (images.length - 1)) return;
+		if (!imageLoaded || currentItem === (items.length - 1)) return;
 
 		if (event) {
 			event.preventDefault();
@@ -139,10 +140,10 @@ class Lightbox extends Component {
 		this.props.onClickNext();
 	}
 	gotoPrev (event) {
-		const { currentImage } = this.props;
+		const { currentItem } = this.props;
 		const { imageLoaded } = this.state;
 
-		if (!imageLoaded || currentImage === 0) return;
+		if (!imageLoaded || currentItem === 0) return;
 
 		if (event) {
 			event.preventDefault();
@@ -181,7 +182,7 @@ class Lightbox extends Component {
 	// ==============================
 
 	renderArrowPrev () {
-		if (this.props.currentImage === 0) return null;
+		if (this.props.currentItem === 0) return null;
 
 		return (
 			<Arrow
@@ -194,7 +195,7 @@ class Lightbox extends Component {
 		);
 	}
 	renderArrowNext () {
-		if (this.props.currentImage === (this.props.images.length - 1)) return null;
+		if (this.props.currentItem === (this.props.items.length - 1)) return null;
 
 		return (
 			<Arrow
@@ -246,23 +247,29 @@ class Lightbox extends Component {
 	}
 	renderImages () {
 		const {
-			currentImage,
-			images,
+			currentItem,
+			items,
 			onClickImage,
 			showThumbnails,
 		} = this.props;
 
 		const { imageLoaded } = this.state;
 
-		if (!images || !images.length) return null;
+		if (!items || !items.length) return null;
 
-		const image = images[currentImage];
-		const sourceSet = normalizeSourceSet(image);
-		const sizes = sourceSet ? '100vw' : null;
+		const item = items[currentItem];
 
 		const thumbnailsSize = showThumbnails ? this.theme.thumbnail.size : 0;
 		const heightOffset = `${this.theme.header.height + this.theme.footer.height + thumbnailsSize
 			+ (this.theme.container.gutter.vertical)}px`;
+
+		if (item.type === 'video') {
+			return <VideoItem {...item} maxHeight={`calc(100vh - ${heightOffset})`} />
+		}
+
+		const sourceSet = normalizeSourceSet(item);
+
+		const sizes = sourceSet ? '100vw' : null;
 
 		return (
 			<figure className={css(this.classes.figure)}>
@@ -275,8 +282,8 @@ class Lightbox extends Component {
 					className={css(this.classes.image, imageLoaded && this.classes.imageLoaded)}
 					onClick={onClickImage}
 					sizes={sizes}
-					alt={image.alt}
-					src={image.src}
+					alt={item.alt}
+					src={item.src}
 					srcSet={sourceSet}
 					style={{
 						cursor: onClickImage ? 'pointer' : 'auto',
@@ -285,16 +292,17 @@ class Lightbox extends Component {
 				/>
 			</figure>
 		);
+
 	}
 	renderThumbnails () {
-		const { images, currentImage, onClickThumbnail, showThumbnails, thumbnailOffset } = this.props;
+		const { items, currentItem, onClickThumbnail, showThumbnails, thumbnailOffset } = this.props;
 
 		if (!showThumbnails) return;
 
 		return (
 			<PaginatedThumbnails
-				currentImage={currentImage}
-				images={images}
+				currentImage={currentItem}
+				images={items.filter(item => !item.type || item.type === 'img')}
 				offset={thumbnailOffset}
 				onClickThumbnail={onClickThumbnail}
 			/>
@@ -319,20 +327,20 @@ class Lightbox extends Component {
 	}
 	renderFooter () {
 		const {
-			currentImage,
-			images,
+			currentItem,
+			items,
 			imageCountSeparator,
 			showImageCount,
 		} = this.props;
 
-		if (!images || !images.length) return null;
+		if (!items || !items.length) return null;
 
 		return (
 			<Footer
-				caption={images[currentImage].caption}
-				countCurrent={currentImage + 1}
+				caption={items[currentItem].caption}
+				countCurrent={currentItem + 1}
 				countSeparator={imageCountSeparator}
-				countTotal={images.length}
+				countTotal={items.length}
 				showCount={showImageCount}
 			/>
 		);
@@ -368,11 +376,11 @@ class Lightbox extends Component {
 Lightbox.propTypes = {
 	backdropClosesModal: PropTypes.bool,
 	closeButtonTitle: PropTypes.string,
-	currentImage: PropTypes.number,
+	currentItem: PropTypes.number,
 	customControls: PropTypes.arrayOf(PropTypes.node),
 	enableKeyboardInput: PropTypes.bool,
 	imageCountSeparator: PropTypes.string,
-	images: PropTypes.arrayOf(
+	items: PropTypes.arrayOf(
 		PropTypes.shape({
 			src: PropTypes.string.isRequired,
 			srcSet: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
@@ -401,7 +409,7 @@ Lightbox.propTypes = {
 };
 Lightbox.defaultProps = {
 	closeButtonTitle: 'Close (Esc)',
-	currentImage: 0,
+	currentItem: 0,
 	enableKeyboardInput: true,
 	imageCountSeparator: ' of ',
 	leftArrowTitle: 'Previous (Left arrow key)',
