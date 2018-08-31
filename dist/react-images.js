@@ -4,7 +4,7 @@
 	(global.Lightbox = factory(global.PropTypes,global.React,global.aphrodite,global.ScrollLock,global.aphrodite,global.ReactTransitionGroup,global.ReactDOM));
 }(this, (function (PropTypes,React,aphrodite,ScrollLock,noImportant,reactTransitionGroup,reactDom) { 'use strict';
 
-PropTypes = PropTypes && PropTypes.hasOwnProperty('default') ? PropTypes['default'] : PropTypes;
+var PropTypes__default = 'default' in PropTypes ? PropTypes['default'] : PropTypes;
 var React__default = 'default' in React ? React['default'] : React;
 ScrollLock = ScrollLock && ScrollLock.hasOwnProperty('default') ? ScrollLock['default'] : ScrollLock;
 
@@ -215,7 +215,20 @@ var createClass = function () {
 
 
 
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
 
+  return obj;
+};
 
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
@@ -324,8 +337,8 @@ var Icon = function Icon(_ref) {
 };
 
 Icon.propTypes = {
-	fill: PropTypes.string,
-	type: PropTypes.oneOf(Object.keys(icons))
+	fill: PropTypes__default.string,
+	type: PropTypes__default.oneOf(Object.keys(icons))
 };
 Icon.defaultProps = {
 	fill: 'white'
@@ -354,16 +367,16 @@ function Arrow(_ref, _ref2) {
 }
 
 Arrow.propTypes = {
-	direction: PropTypes.oneOf(['left', 'right']),
-	icon: PropTypes.string,
-	onClick: PropTypes.func.isRequired,
-	size: PropTypes.oneOf(['medium', 'small']).isRequired
+	direction: PropTypes__default.oneOf(['left', 'right']),
+	icon: PropTypes__default.string,
+	onClick: PropTypes__default.func.isRequired,
+	size: PropTypes__default.oneOf(['medium', 'small']).isRequired
 };
 Arrow.defaultProps = {
 	size: 'medium'
 };
 Arrow.contextTypes = {
-	theme: PropTypes.object.isRequired
+	theme: PropTypes__default.object.isRequired
 };
 
 var defaultStyles$1 = {
@@ -423,7 +436,7 @@ function Container(_ref, _ref2) {
 }
 
 Container.contextTypes = {
-	theme: PropTypes.object.isRequired
+	theme: PropTypes__default.object.isRequired
 };
 
 var defaultStyles$2 = {
@@ -480,14 +493,14 @@ function Footer(_ref, _ref2) {
 }
 
 Footer.propTypes = {
-	caption: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-	countCurrent: PropTypes.number,
-	countSeparator: PropTypes.string,
-	countTotal: PropTypes.number,
-	showCount: PropTypes.bool
+	caption: PropTypes__default.oneOfType([PropTypes__default.string, PropTypes__default.element]),
+	countCurrent: PropTypes__default.number,
+	countSeparator: PropTypes__default.string,
+	countTotal: PropTypes__default.number,
+	showCount: PropTypes__default.bool
 };
 Footer.contextTypes = {
-	theme: PropTypes.object.isRequired
+	theme: PropTypes__default.object.isRequired
 };
 
 var defaultStyles$3 = {
@@ -541,12 +554,12 @@ function Header(_ref, _ref2) {
 }
 
 Header.propTypes = {
-	customControls: PropTypes.array,
-	onClose: PropTypes.func.isRequired,
-	showCloseButton: PropTypes.bool
+	customControls: PropTypes__default.array,
+	onClose: PropTypes__default.func.isRequired,
+	showCloseButton: PropTypes__default.bool
 };
 Header.contextTypes = {
-	theme: PropTypes.object.isRequired
+	theme: PropTypes__default.object.isRequired
 };
 
 var defaultStyles$4 = {
@@ -596,15 +609,15 @@ function Thumbnail(_ref, _ref2) {
 }
 
 Thumbnail.propTypes = {
-	active: PropTypes.bool,
-	index: PropTypes.number,
-	onClick: PropTypes.func.isRequired,
-	src: PropTypes.string,
-	thumbnail: PropTypes.string
+	active: PropTypes__default.bool,
+	index: PropTypes__default.number,
+	onClick: PropTypes__default.func.isRequired,
+	src: PropTypes__default.string,
+	thumbnail: PropTypes__default.string
 };
 
 Thumbnail.contextTypes = {
-	theme: PropTypes.object.isRequired
+	theme: PropTypes__default.object.isRequired
 };
 
 var defaultStyles$5 = {
@@ -814,10 +827,10 @@ var PaginatedThumbnails = function (_Component) {
 }(React.Component);
 
 PaginatedThumbnails.propTypes = {
-	currentImage: PropTypes.number,
-	images: PropTypes.array,
-	offset: PropTypes.number,
-	onClickThumbnail: PropTypes.func.isRequired
+	currentImage: PropTypes__default.number,
+	images: PropTypes__default.array,
+	offset: PropTypes__default.number,
+	onClickThumbnail: PropTypes__default.func.isRequired
 };
 
 // Pass the Lightbox context through to the Portal's descendents
@@ -846,10 +859,10 @@ var PassContext = function (_Component) {
 }(React.Component);
 
 PassContext.propTypes = {
-	context: PropTypes.object.isRequired
+	context: PropTypes__default.object.isRequired
 };
 PassContext.childContextTypes = {
-	theme: PropTypes.object
+	theme: PropTypes__default.object
 };
 
 var Portal = function (_Component) {
@@ -918,7 +931,7 @@ var Portal = function (_Component) {
 }(React.Component);
 
 Portal.contextTypes = {
-	theme: PropTypes.object.isRequired
+	theme: PropTypes__default.object.isRequired
 };
 
 var Spinner = function Spinner(props) {
@@ -932,8 +945,8 @@ var Spinner = function Spinner(props) {
 };
 
 Spinner.propTypes = {
-	color: PropTypes.string,
-	size: PropTypes.number
+	color: PropTypes__default.string,
+	size: PropTypes__default.number
 };
 
 var rippleKeyframes = {
@@ -975,6 +988,84 @@ var styles = function styles(_ref) {
 		}
 	};
 };
+
+var _iframe;
+
+var propTypes = {
+  src: PropTypes.string.isRequired,
+  qs: PropTypes.string,
+  maxHeight: PropTypes.string
+};
+
+var defaultProps = {
+  maxHeight: '100%',
+  qs: ''
+};
+
+var youtubeRegEx = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/;
+var youtubePartsRegEx = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|\?v=)([^#&?]*).*/;
+var isString = function isString(s) {
+  return !!s && typeof s === 'string';
+};
+var isYoutubeVideo = function isYoutubeVideo(url) {
+  return isString(url) && youtubeRegEx.test(url);
+};
+var isYoutubeId = function isYoutubeId(url) {
+  return isString(url) && !/^http(s?):\/\//.test(url) && url.length === 11;
+};
+var makeEmbed = function makeEmbed(id) {
+  return 'https://www.youtube.com/embed/' + id;
+};
+
+var makeEmbedUrl = function makeEmbedUrl(url) {
+  if (isYoutubeId(url) || isYoutubeVideo(url)) {
+    // If is url
+    if (!isYoutubeId(url)) {
+      var parts = url.match(youtubePartsRegEx);
+      return makeEmbed(parts[2]);
+    }
+
+    // most likely a youtube video id
+    return makeEmbed(url);
+  }
+};
+
+var styles$1 = aphrodite.StyleSheet.create({
+  wrapper: {
+    position: 'relative',
+    paddingBottom: '56.25%',
+    maxWidth: '100%',
+    width: '80vw',
+    height: 0
+  },
+
+  iframe: (_iframe = {
+    width: '100%',
+    position: 'absolute',
+    top: 0,
+    right: 0
+  }, defineProperty(_iframe, 'width', 'inherit'), defineProperty(_iframe, 'height', '100%'), defineProperty(_iframe, 'maxHeight', 'inherit'), defineProperty(_iframe, 'margin', 'auto'), _iframe)
+});
+
+var VideoItem = function VideoItem(_ref) {
+  var src = _ref.src,
+      maxHeight = _ref.maxHeight,
+      qs = _ref.qs;
+  return React__default.createElement(
+    'div',
+    { className: aphrodite.css(styles$1.wrapper), style: { maxHeight: maxHeight } },
+    React__default.createElement('iframe', {
+      src: '' + makeEmbedUrl(src) + (qs ? '?' + qs : ''),
+      className: aphrodite.css(styles$1.iframe),
+      frameBorder: '0',
+      rel: '0',
+      allow: 'encrypted-media',
+      allowFullScreen: true })
+  );
+};
+
+VideoItem.propTypes = propTypes;
+VideoItem.defaultProps = defaultProps;
 
 /**
 	Bind multiple component methods:
@@ -1041,8 +1132,8 @@ var Lightbox = function (_Component) {
 				if (this.props.enableKeyboardInput) {
 					window.addEventListener('keydown', this.handleKeyboardInput);
 				}
-				if (typeof this.props.currentImage === 'number') {
-					this.preloadImage(this.props.currentImage, this.handleImageLoaded);
+				if (typeof this.props.currentItem === 'number') {
+					this.preloadImage(this.props.currentItem, this.handleImageLoaded);
 				}
 			}
 		}
@@ -1051,16 +1142,16 @@ var Lightbox = function (_Component) {
 		value: function componentWillReceiveProps(nextProps) {
 			if (!canUseDom) return;
 
-			// preload images
+			// preload items
 			if (nextProps.preloadNextImage) {
-				var currentIndex = this.props.currentImage;
-				var nextIndex = nextProps.currentImage + 1;
-				var prevIndex = nextProps.currentImage - 1;
+				var currentIndex = this.props.currentItem;
+				var nextIndex = nextProps.currentItem + 1;
+				var prevIndex = nextProps.currentItem - 1;
 				var preloadIndex = void 0;
 
-				if (currentIndex && nextProps.currentImage > currentIndex) {
+				if (currentIndex && nextProps.currentItem > currentIndex) {
 					preloadIndex = nextIndex;
-				} else if (currentIndex && nextProps.currentImage < currentIndex) {
+				} else if (currentIndex && nextProps.currentItem < currentIndex) {
 					preloadIndex = prevIndex;
 				}
 
@@ -1075,8 +1166,8 @@ var Lightbox = function (_Component) {
 			}
 
 			// preload current image
-			if (this.props.currentImage !== nextProps.currentImage || !this.props.isOpen && nextProps.isOpen) {
-				var img = this.preloadImageData(nextProps.images[nextProps.currentImage], this.handleImageLoaded);
+			if (this.props.currentItem !== nextProps.currentItem || !this.props.isOpen && nextProps.isOpen) {
+				var img = this.preloadImageData(nextProps.items[nextProps.currentItem], this.handleImageLoaded);
 				if (img) this.setState({ imageLoaded: img.complete });
 			}
 
@@ -1103,7 +1194,7 @@ var Lightbox = function (_Component) {
 	}, {
 		key: 'preloadImage',
 		value: function preloadImage(idx, onload) {
-			return this.preloadImageData(this.props.images[idx], onload);
+			return this.preloadImageData(this.props.items[idx], onload);
 		}
 	}, {
 		key: 'preloadImageData',
@@ -1112,7 +1203,7 @@ var Lightbox = function (_Component) {
 			var img = new Image();
 			var sourceSet = normalizeSourceSet(data);
 
-			// TODO: add error handling for missing images
+			// TODO: add error handling for missing items
 			img.onerror = onload;
 			img.onload = onload;
 			img.src = data.src;
@@ -1125,12 +1216,12 @@ var Lightbox = function (_Component) {
 		key: 'gotoNext',
 		value: function gotoNext(event) {
 			var _props = this.props,
-			    currentImage = _props.currentImage,
-			    images = _props.images;
+			    currentItem = _props.currentItem,
+			    items = _props.items;
 			var imageLoaded = this.state.imageLoaded;
 
 
-			if (!imageLoaded || currentImage === images.length - 1) return;
+			if (!imageLoaded || currentItem === items.length - 1) return;
 
 			if (event) {
 				event.preventDefault();
@@ -1142,11 +1233,11 @@ var Lightbox = function (_Component) {
 	}, {
 		key: 'gotoPrev',
 		value: function gotoPrev(event) {
-			var currentImage = this.props.currentImage;
+			var currentItem = this.props.currentItem;
 			var imageLoaded = this.state.imageLoaded;
 
 
-			if (!imageLoaded || currentImage === 0) return;
+			if (!imageLoaded || currentItem === 0) return;
 
 			if (event) {
 				event.preventDefault();
@@ -1195,7 +1286,7 @@ var Lightbox = function (_Component) {
 	}, {
 		key: 'renderArrowPrev',
 		value: function renderArrowPrev() {
-			if (this.props.currentImage === 0) return null;
+			if (this.props.currentItem === 0) return null;
 
 			return React__default.createElement(Arrow, {
 				direction: 'left',
@@ -1208,7 +1299,7 @@ var Lightbox = function (_Component) {
 	}, {
 		key: 'renderArrowNext',
 		value: function renderArrowNext() {
-			if (this.props.currentImage === this.props.images.length - 1) return null;
+			if (this.props.currentItem === this.props.items.length - 1) return null;
 
 			return React__default.createElement(Arrow, {
 				direction: 'right',
@@ -1265,21 +1356,27 @@ var Lightbox = function (_Component) {
 		key: 'renderImages',
 		value: function renderImages() {
 			var _props3 = this.props,
-			    currentImage = _props3.currentImage,
-			    images = _props3.images,
+			    currentItem = _props3.currentItem,
+			    items = _props3.items,
 			    onClickImage = _props3.onClickImage,
 			    showThumbnails = _props3.showThumbnails;
 			var imageLoaded = this.state.imageLoaded;
 
 
-			if (!images || !images.length) return null;
+			if (!items || !items.length) return null;
 
-			var image = images[currentImage];
-			var sourceSet = normalizeSourceSet(image);
-			var sizes = sourceSet ? '100vw' : null;
+			var item = items[currentItem];
 
 			var thumbnailsSize = showThumbnails ? this.theme.thumbnail.size : 0;
 			var heightOffset = this.theme.header.height + this.theme.footer.height + thumbnailsSize + this.theme.container.gutter.vertical + 'px';
+
+			if (item.type === 'video') {
+				return React__default.createElement(VideoItem, _extends({}, item, { maxHeight: 'calc(100vh - ' + heightOffset + ')' }));
+			}
+
+			var sourceSet = normalizeSourceSet(item);
+
+			var sizes = sourceSet ? '100vw' : null;
 
 			return React__default.createElement(
 				'figure',
@@ -1288,8 +1385,8 @@ var Lightbox = function (_Component) {
 					className: aphrodite.css(this.classes.image, imageLoaded && this.classes.imageLoaded),
 					onClick: onClickImage,
 					sizes: sizes,
-					alt: image.alt,
-					src: image.src,
+					alt: item.alt,
+					src: item.src,
 					srcSet: sourceSet,
 					style: {
 						cursor: onClickImage ? 'pointer' : 'auto',
@@ -1302,8 +1399,8 @@ var Lightbox = function (_Component) {
 		key: 'renderThumbnails',
 		value: function renderThumbnails() {
 			var _props4 = this.props,
-			    images = _props4.images,
-			    currentImage = _props4.currentImage,
+			    items = _props4.items,
+			    currentItem = _props4.currentItem,
 			    onClickThumbnail = _props4.onClickThumbnail,
 			    showThumbnails = _props4.showThumbnails,
 			    thumbnailOffset = _props4.thumbnailOffset;
@@ -1312,8 +1409,10 @@ var Lightbox = function (_Component) {
 			if (!showThumbnails) return;
 
 			return React__default.createElement(PaginatedThumbnails, {
-				currentImage: currentImage,
-				images: images,
+				currentImage: currentItem,
+				images: items.filter(function (item) {
+					return !item.type || item.type === 'img';
+				}),
 				offset: thumbnailOffset,
 				onClickThumbnail: onClickThumbnail
 			});
@@ -1339,19 +1438,19 @@ var Lightbox = function (_Component) {
 		key: 'renderFooter',
 		value: function renderFooter() {
 			var _props6 = this.props,
-			    currentImage = _props6.currentImage,
-			    images = _props6.images,
+			    currentItem = _props6.currentItem,
+			    items = _props6.items,
 			    imageCountSeparator = _props6.imageCountSeparator,
 			    showImageCount = _props6.showImageCount;
 
 
-			if (!images || !images.length) return null;
+			if (!items || !items.length) return null;
 
 			return React__default.createElement(Footer, {
-				caption: images[currentImage].caption,
-				countCurrent: currentImage + 1,
+				caption: items[currentItem].caption,
+				countCurrent: currentItem + 1,
 				countSeparator: imageCountSeparator,
-				countTotal: images.length,
+				countTotal: items.length,
 				showCount: showImageCount
 			});
 		}
@@ -1389,40 +1488,40 @@ var Lightbox = function (_Component) {
 }(React.Component);
 
 Lightbox.propTypes = {
-	backdropClosesModal: PropTypes.bool,
-	closeButtonTitle: PropTypes.string,
-	currentImage: PropTypes.number,
-	customControls: PropTypes.arrayOf(PropTypes.node),
-	enableKeyboardInput: PropTypes.bool,
-	imageCountSeparator: PropTypes.string,
-	images: PropTypes.arrayOf(PropTypes.shape({
-		src: PropTypes.string.isRequired,
-		srcSet: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-		caption: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-		thumbnail: PropTypes.string
+	backdropClosesModal: PropTypes__default.bool,
+	closeButtonTitle: PropTypes__default.string,
+	currentItem: PropTypes__default.number,
+	customControls: PropTypes__default.arrayOf(PropTypes__default.node),
+	enableKeyboardInput: PropTypes__default.bool,
+	imageCountSeparator: PropTypes__default.string,
+	items: PropTypes__default.arrayOf(PropTypes__default.shape({
+		src: PropTypes__default.string.isRequired,
+		srcSet: PropTypes__default.oneOfType([PropTypes__default.string, PropTypes__default.arrayOf(PropTypes__default.string)]),
+		caption: PropTypes__default.oneOfType([PropTypes__default.string, PropTypes__default.element]),
+		thumbnail: PropTypes__default.string
 	})).isRequired,
-	isOpen: PropTypes.bool,
-	leftArrowTitle: PropTypes.string,
-	onClickImage: PropTypes.func,
-	onClickNext: PropTypes.func,
-	onClickPrev: PropTypes.func,
-	onClose: PropTypes.func.isRequired,
-	preloadNextImage: PropTypes.bool,
-	preventScroll: PropTypes.bool,
-	rightArrowTitle: PropTypes.string,
-	showCloseButton: PropTypes.bool,
-	showImageCount: PropTypes.bool,
-	showThumbnails: PropTypes.bool,
-	spinner: PropTypes.func,
-	spinnerColor: PropTypes.string,
-	spinnerSize: PropTypes.number,
-	theme: PropTypes.object,
-	thumbnailOffset: PropTypes.number,
-	width: PropTypes.number
+	isOpen: PropTypes__default.bool,
+	leftArrowTitle: PropTypes__default.string,
+	onClickImage: PropTypes__default.func,
+	onClickNext: PropTypes__default.func,
+	onClickPrev: PropTypes__default.func,
+	onClose: PropTypes__default.func.isRequired,
+	preloadNextImage: PropTypes__default.bool,
+	preventScroll: PropTypes__default.bool,
+	rightArrowTitle: PropTypes__default.string,
+	showCloseButton: PropTypes__default.bool,
+	showImageCount: PropTypes__default.bool,
+	showThumbnails: PropTypes__default.bool,
+	spinner: PropTypes__default.func,
+	spinnerColor: PropTypes__default.string,
+	spinnerSize: PropTypes__default.number,
+	theme: PropTypes__default.object,
+	thumbnailOffset: PropTypes__default.number,
+	width: PropTypes__default.number
 };
 Lightbox.defaultProps = {
 	closeButtonTitle: 'Close (Esc)',
-	currentImage: 0,
+	currentItem: 0,
 	enableKeyboardInput: true,
 	imageCountSeparator: ' of ',
 	leftArrowTitle: 'Previous (Left arrow key)',
@@ -1440,7 +1539,7 @@ Lightbox.defaultProps = {
 	width: 1024
 };
 Lightbox.childContextTypes = {
-	theme: PropTypes.object.isRequired
+	theme: PropTypes__default.object.isRequired
 };
 
 var defaultStyles = {
