@@ -56,7 +56,7 @@ Then open [`localhost:8000`](http://localhost:8000) in a browser.
 Example using srcSet:
 ```jsx
 <Lightbox
-  images={LIGHTBOX_IMAGE_SET}
+  items={LIGHTBOX_IMAGE_SET}
   ...
 />
 
@@ -90,7 +90,7 @@ closeButtonTitle | string | ' Close (Esc) ' | Customize close esc title
 enableKeyboardInput | bool  | true  | Supports keyboard input - <code>esc</code>, <code>arrow left</code>, and <code>arrow right</code>
 currentImage  | number  | 0 | The index of the image to display initially
 customControls | array | undefined | An array of elements to display as custom controls on the top of lightbox
-images  | array | undefined | Required. Array of image objects See image options table below
+items  | array | undefined | Required. Array of image or video objects See image/video options table below
 imageCountSeparator  | String  | ' of ' | Customize separator in the image count
 isOpen  | bool  | false | Whether or not the lightbox is displayed
 leftArrowTitle | string | ' Previous (Left arrow key) ' | Customize of left arrow title
@@ -109,11 +109,13 @@ spinnerColor | string | 'white' | Color of spinner
 spinnerSize | number | 100 | Size of spinner
 preventScroll | bool | true | Determines whether scrolling is prevented via [react-scrolllock](https://github.com/jossmac/react-scrolllock)
 
-## Images object
+## Items (image or video) object
 
 Property	|	Type		|	Default		|	Description
 :-----------------------|:--------------|:--------------|:--------------------------------
 src  | string | undefined | Required
+type | string | img | Set to video or img, or undefined.
+qs | string | undefined | Pass query string to video url if needed
 srcSet  | array of strings or string | undefined | Optional
 caption  | string | undefined | Optional
 alt  | string | undefined | Optional
