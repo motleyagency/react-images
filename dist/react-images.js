@@ -1043,8 +1043,9 @@ var styles$1 = aphrodite.StyleSheet.create({
     width: '100%',
     position: 'absolute',
     top: 0,
-    right: 0
-  }, defineProperty(_iframe, 'width', 'inherit'), defineProperty(_iframe, 'height', '100%'), defineProperty(_iframe, 'maxHeight', 'inherit'), defineProperty(_iframe, 'margin', 'auto'), _iframe)
+    right: 0,
+    left: 0
+  }, defineProperty(_iframe, 'width', '100%'), defineProperty(_iframe, 'height', '100%'), defineProperty(_iframe, 'maxHeight', 'inherit'), defineProperty(_iframe, 'margin', 'auto'), _iframe)
 });
 
 var VideoItem = function VideoItem(_ref) {
