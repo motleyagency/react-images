@@ -18,6 +18,10 @@ function makeUnsplashThumbnail (id, orientation = 'landscape') {
 	return `https://images.unsplash.com/photo-${id}?dpr=2&auto=format&crop=faces&fit=crop&${dimensions}`;
 }
 
+function makeYoutubeThumbnail (id) {
+	return `https://img.youtube.com/vi/${id}/0.jpg`;
+}
+
 // Unsplash images from the "Spirit Animals" collection
 // https://unsplash.com/collections/158825/spirit-animals
 
@@ -47,6 +51,15 @@ const THUMBNAIL_IMAGES = [
 	{ id: '1470688090067-6d429c0b2600', caption: 'Photo by Ján Jakub Naništa', orientation: 'landscape' }, // https://unsplash.com/photos/xqjO-lx39B4 (Scottish Highland Cow)
 	{ id: '1470742292565-de43c4b02b57', caption: 'Photo by Eric Knoll', orientation: 'landscape' }, // https://unsplash.com/photos/DmOCkOnx-MQ (Cheetah)
 	// https://unsplash.com/photos/NUMlxTPsznM coyote?
+];
+
+const MEDIA_ITEMS = [
+	{ id: '1470619549108-b85c56fe5be8', caption: 'Photo by Alan Emery', orientation: 'square', useForDemo: true }, // https://unsplash.com/photos/SYzUF6XcWBY (Flamingo)
+	{ type: 'video', qs: 'foo=bar', src: 'L7o6euGM2YM', orientation: 'landscape', useForDemo: true },
+	{ id: '1471079502516-250c19af6928', caption: 'Photo by Jeremy Bishop', orientation: 'landscape', useForDemo: true }, // https://unsplash.com/photos/GIpGxe2_cT4 (Turtle)
+	{ id: '1454023492550-5696f8ff10e1', caption: 'Photo by Jessica Weiller', orientation: 'landscape', useForDemo: true }, // https://unsplash.com/photos/LmVSKeDy6EA (Tiger)
+	{ id: '1470854989922-5be2f7456d78', caption: 'Photo by Piotr Łaskawski', orientation: 'landscape', useForDemo: true }, // https://unsplash.com/photos/GXMr7BadXQo (Hedgehog)
+	{ id: '1470317596697-cbdeda56f999', caption: 'Photo by Michel Bosma', orientation: 'landscape', useForDemo: true },
 ];
 
 const theme = {
@@ -121,6 +134,22 @@ render(
 			caption,
 			orientation,
 			useForDemo,
+		}))} />
+
+		<h3>Default Options with Youtube video in the mix</h3>
+		<Gallery images={MEDIA_ITEMS.map(({ caption, id, src, orientation, useForDemo, ...rest }) => ({
+			src: src || makeUnsplashSrc(id),
+			thumbnail: src ? makeYoutubeThumbnail(src) : makeUnsplashThumbnail(id, orientation),
+			srcSet: src ? undefined : [
+				makeUnsplashSrcSet(id, 1024),
+				makeUnsplashSrcSet(id, 800),
+				makeUnsplashSrcSet(id, 500),
+				makeUnsplashSrcSet(id, 320),
+			],
+			caption,
+			orientation,
+			useForDemo,
+			...rest,
 		}))} />
 
 		<h3>With Thumbnails</h3>
