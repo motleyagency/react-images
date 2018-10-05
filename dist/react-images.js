@@ -215,20 +215,7 @@ var createClass = function () {
 
 
 
-var defineProperty = function (obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
 
-  return obj;
-};
 
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
@@ -989,8 +976,6 @@ var styles = function styles(_ref) {
 	};
 };
 
-var _iframe;
-
 var propTypes = {
   src: PropTypes.string.isRequired,
   qs: PropTypes.string,
@@ -1035,17 +1020,19 @@ var styles$1 = aphrodite.StyleSheet.create({
     position: 'relative',
     paddingBottom: '56.25%',
     maxWidth: '100%',
-    width: '80vw',
     height: 0
   },
 
-  iframe: (_iframe = {
+  iframe: {
     width: '100%',
     position: 'absolute',
     top: 0,
     right: 0,
-    left: 0
-  }, defineProperty(_iframe, 'width', '100%'), defineProperty(_iframe, 'height', '100%'), defineProperty(_iframe, 'maxHeight', 'inherit'), defineProperty(_iframe, 'margin', 'auto'), _iframe)
+    left: 0,
+    height: '100%',
+    maxHeight: 'inherit',
+    margin: 'auto'
+  }
 });
 
 var VideoItem = function VideoItem(_ref) {
