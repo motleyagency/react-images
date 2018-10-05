@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     paddingBottom: '56.25%',
     maxWidth: '100%',
-    width: '80vw',
     height: 0,
   },
 
@@ -49,7 +48,6 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     left: 0,
-    width: '100%',
     height: '100%',
     maxHeight: 'inherit',
     margin: 'auto'
